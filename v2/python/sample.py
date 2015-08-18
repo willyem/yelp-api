@@ -21,22 +21,22 @@ import pprint
 import sys
 import urllib
 import urllib2
-
+import pymongo
 import oauth2
 
 
 API_HOST = 'api.yelp.com'
-DEFAULT_TERM = 'dinner'
+DEFAULT_TERM = 'gastropubs'
 DEFAULT_LOCATION = 'San Francisco, CA'
-SEARCH_LIMIT = 3
+SEARCH_LIMIT = 20
 SEARCH_PATH = '/v2/search/'
 BUSINESS_PATH = '/v2/business/'
 
 # OAuth credential placeholders that must be filled in by users.
-CONSUMER_KEY = None
-CONSUMER_SECRET = None
-TOKEN = None
-TOKEN_SECRET = None
+CONSUMER_KEY = "pccrL83Z9i_QfTOXNWdITA"
+CONSUMER_SECRET = "I0j3qakoBlVlIqhRXlHNdq9mqrE"
+TOKEN = "_OFhCoQiorpb82GPbVG-YAc58j65YVOx"
+TOKEN_SECRET = "QyGHeEA2cKO4iKpRsoBsSS4BPX4"
 
 
 def request(host, path, url_params=None):
@@ -141,6 +141,8 @@ def query_api(term, location):
 
 
 def main():
+    client = pymongo.MongoClient
+    db = client('yelp_database')
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-q', '--term', dest='term', default=DEFAULT_TERM, type=str, help='Search term (default: %(default)s)')
